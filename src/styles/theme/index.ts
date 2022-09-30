@@ -21,10 +21,8 @@ export const theme = {
   },
 
   font_family: {
-    roboto_regular: "Roboto_400Regular",
-    roboto_bold: "Roboto_700Bold",
-    baloo_bold: "Baloo_700Bold",
-    baloo_extrabold: "Baloo_800ExtraBold",
+    roboto: "Roboto",
+    baloo: "Baloo 2",
   },
 
   font_size: {
