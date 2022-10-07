@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
-import { Card } from "../../components/Card";
+import { Card, CardProps } from "../../components/Card";
+import { coffes } from "../../coffes";
 
-import coffe from "../../assets/presentation/coffe.png";
+import coffesvg from "../../assets/presentation/coffe.png";
 import image from "../../assets/CardCoffeImages/image.png";
 import cart from "../../assets/cart.svg";
 import box from "../../assets/box.svg";
@@ -20,6 +22,10 @@ import {
 } from "./styles";
 
 export function Home() {
+  const [coffe, setCoffe] = useState<CardProps[]>([]);
+  useEffect(() => {
+    setCoffe(coffes);
+  }, [coffe]);
   return (
     <Container>
       <Header />
@@ -52,7 +58,7 @@ export function Home() {
               </Icons>
             </IconsContainer>
           </PresentationText>
-          <img src={coffe} />
+          <img src={coffesvg} />
         </PresentationContent>
       </PresentationContainer>
 
@@ -60,15 +66,17 @@ export function Home() {
         <h1>Nossos cafés</h1>
 
         <CoffesContent>
-          <Card
-            id={1}
-            image={image}
-            title="Expresso Tradicional"
-            subtitle="O tradicional café feito com água quente e grãos moídos"
-            type="TRADICIONAL"
-            price="R$ 9,90"
-            amount={1}
-          />
+          {coffe.map((item) => (
+            <Card
+              key={item.id}
+              id={item.id}
+              image={item.image}
+              title={item.title}
+              subtitle={item.subtitle}
+              type={item.type}
+              price={item.price}
+            />
+          ))}
         </CoffesContent>
       </CoffesContainer>
     </Container>

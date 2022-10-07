@@ -16,6 +16,26 @@ export const Container = styled.div`
     margin-top: -20px;
   }
 
+  > div {
+    display: flex;
+    gap: 4px;
+
+    p {
+      margin-top: 0.75rem;
+      padding: 4px 8px;
+
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 0.625rem;
+      line-height: 130%;
+
+      background: ${theme.colors.yellow_light};
+      color: ${theme.colors.yellow_dark};
+      border-radius: 100px;
+    }
+  }
+
   h1 {
     font-family: "Baloo 2";
     font-style: normal;
@@ -38,21 +58,6 @@ export const Container = styled.div`
   }
 `;
 
-export const Type = styled.span`
-  margin-top: 0.75rem;
-  padding: 4px 8px;
-
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.625rem;
-  line-height: 130%;
-
-  background: ${theme.colors.yellow_light};
-  color: ${theme.colors.yellow_dark};
-  border-radius: 100px;
-`;
-
 export const PriceCartContainer = styled.div`
   display: flex;
   align-items: center;
@@ -69,7 +74,7 @@ export const PriceCartContainer = styled.div`
     color: ${theme.colors.base_text};
   }
 
-  div {
+  > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -120,4 +125,9 @@ export const Icon = styled.button`
   background: ${theme.colors.purple_dark};
   border-radius: 6px;
   border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: ${theme.colors.purple};
+  }
 `;

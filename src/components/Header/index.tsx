@@ -6,8 +6,8 @@ import {
   CartButton,
 } from "./styles";
 import { ShoppingCart, MapPin } from "phosphor-react";
-import logo from "../../assets/LogoCoffe.svg";
 import { theme } from "../../styles/theme";
+import logo from "../../assets/LogoCoffe.svg";
 
 export function Header() {
   return (

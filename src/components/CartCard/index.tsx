@@ -1,6 +1,8 @@
 import { Container, ButtonsContainer, PriceContainer } from "./styles";
 import { Minus, Plus, Trash } from "phosphor-react";
 import { theme } from "../../styles/theme";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
 interface CartCardProps {
   id: number;
@@ -11,6 +13,12 @@ interface CartCardProps {
 }
 
 export function CartCard({ id, image, title, amount, price }: CartCardProps) {
+  const { removeOneItemCart } = useContext(CartContext);
+
+  function removeItem(id: number) {
+    removeOneItemCart(id);
+  }
+
   return (
     <Container>
       <img src={image} />
@@ -29,7 +37,7 @@ export function CartCard({ id, image, title, amount, price }: CartCardProps) {
             </button>
           </div>
 
-          <button>
+          <button onClick={() => removeItem(id)}>
             <Trash size={16} color={theme.colors.purple} /> REMOVER
           </button>
         </ButtonsContainer>

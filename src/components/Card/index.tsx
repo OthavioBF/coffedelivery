@@ -1,37 +1,31 @@
-import { Container, Type, PriceCartContainer, Icon } from "./styles";
+import { Container, PriceCartContainer, Icon } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartSimple, Plus, Minus } from "phosphor-react";
 import { theme } from "../../styles/theme";
+import { useEffect, useState } from "react";
+import { coffes } from "../../coffes";
 
-interface CardProps {
+export interface CardProps {
   id: number;
   image: string;
   title: string;
   subtitle: string;
-  type: string;
-  price: string;
-  amount: number;
+  type: string[];
+  price: number;
 }
 
-export function Card({
-  id,
-  image,
-  title,
-  subtitle,
-  type,
-  price,
-  amount,
-}: CardProps) {
+export function Card({ id, image, title, subtitle, type, price }: CardProps) {
   const navigate = useNavigate();
-
-  function removeItemCart(id: number) {}
-
-  function addItemCart(id: number) {}
 
   return (
     <Container>
       <img src={image} />
-      <Type>{type}</Type>
+      <div>
+        {type.map((item) => (
+          <p key={`${id}-${type}`}>{item}</p>
+        ))}
+      </div>
+
       <h1>{title}</h1>
       <h2>{subtitle}</h2>
 
@@ -39,13 +33,13 @@ export function Card({
         <span>{price}</span>
 
         <div>
-          <button type="button" onClick={() => removeItemCart(id)}>
+          <button type="button">
             <Minus size={14} weight="bold" color={theme.colors.purple} />
           </button>
 
-          <input type="number" readOnly value={amount} />
+          <input type="number" readOnly />
 
-          <button type="button" onClick={() => addItemCart(id)}>
+          <button type="button">
             <Plus size={14} weight="bold" color={theme.colors.purple} />
           </button>
         </div>

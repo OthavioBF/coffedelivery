@@ -74,7 +74,7 @@ export const CoffesContainer = styled.div`
   height: auto;
   padding-top: 32px;
 
-  h1 {
+  > h1 {
     font-family: "Baloo 2";
     font-style: normal;
     font-weight: 800;
@@ -86,5 +86,8 @@ export const CoffesContainer = styled.div`
 `;
 
 export const CoffesContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem 2rem;
   margin-bottom: 9.813rem;
 `;
