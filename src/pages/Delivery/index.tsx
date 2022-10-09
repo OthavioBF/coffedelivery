@@ -10,9 +10,23 @@ import bike from "../../assets/Illustration.png";
 import local from "../../assets/local.svg";
 import clock from "../../assets/clock.svg";
 import dolla from "../../assets/dolla.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+
+interface LocationParams {
+  rua: string;
+  numero: number;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+  payment: string;
+}
 
 export function Delivery() {
+  const location = useLocation();
+
+  const state = location.state as LocationParams;
+  const { rua, numero, bairro, cidade, uf, payment } = state;
   return (
     <Container>
       <Header />
@@ -27,20 +41,21 @@ export function Delivery() {
               <div>
                 <img src={local} alt="" />
                 <h1>
-                  Entrega em Rua João Daniel Martinelli, 102Farrapos - Porto
-                  Alegre, RS
+                  {`Entrega em ${rua}, ${numero} ${bairro} - ${cidade}, ${uf}`}
                 </h1>
               </div>
               <div>
                 <img src={clock} alt="" />
                 <h1>
-                  Previsão de entrega <span>20 min - 30 min</span>
+                  Previsão de entrega <br />
+                  <span>20 min - 30 min</span>
                 </h1>
               </div>
               <div>
                 <img src={dolla} alt="" />
                 <h1>
-                  Pagamento na entrega <span>Cartão de Crédito</span>
+                  Pagamento na entrega <br />
+                  <span>{payment}</span>
                 </h1>
               </div>
             </DeliveryContent>

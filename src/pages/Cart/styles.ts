@@ -8,9 +8,29 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    background: ${theme.colors.purple};
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 130%;
+    color: ${theme.colors.white};
+
+    text-decoration: none;
+    border-radius: 6px;
+    margin-top: 3rem;
+    padding: 0 10px;
+  }
 `;
 
-export const Content = styled.div`
+export const Content = styled.form`
   display: flex;
   margin-top: 2.5rem;
   gap: 2rem;
@@ -43,7 +63,7 @@ export const AdressContainer = styled.div`
   margin-top: 1rem;
   border-radius: 6px;
 
-  form {
+  footer {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -74,7 +94,7 @@ export const AdressContainer = styled.div`
   }
 `;
 
-export const AdressTitle = styled.div`
+export const AdressTitle = styled.header`
   display: flex;
   gap: 0.75rem;
 

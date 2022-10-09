@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { coffes } from "../coffes";
+import { formatPrice } from "../util/format";
 
 export interface Products {
   id: number;
@@ -12,12 +13,22 @@ export interface Products {
   amount: number;
 }
 
+export interface CartProducts {
+  id: number;
+  title: string;
+  image: string;
+  price: number;
+  priceFormatted?: string;
+  amount: number;
+}
+
 interface CartContextProviderProps {
   children: React.ReactNode;
 }
 
 interface CartContextProps {
   products: Products[];
+  cartProducts: CartProducts[];
   total: number;
   addItemCart: (id: number) => void;
   removeItemCart: (id: number) => void;
@@ -29,10 +40,16 @@ export const CartContext = createContext({} as CartContextProps);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
   const [products, setProducts] = useState<Products[]>([]);
+  const [cartProducts, setCartProducts] = useState<CartProducts[]>([]);
   const [total, setTotal] = useState(0);
 
   function loadCoffes() {
-    setProducts(coffes);
+    const dataFormatted = coffes.map((product: Products) => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+      amount: 0,
+    }));
+    setProducts(dataFormatted);
   }
 
   function addItemCart(id: number) {
@@ -45,11 +62,11 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         : { ...products }
     );
 
-    setProducts(addItem);
+    setCartProducts(addItem);
   }
 
   function removeItemCart(id: number) {
-    const addItem = products.map((item) =>
+    const removeItem = products.map((item) =>
       id === item.id
         ? {
             ...products,
@@ -58,14 +75,14 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         : { ...products }
     );
 
-    setProducts(addItem);
+    setProducts(removeItem);
   }
 
   function removeOneItemCart(id: number) {
-    const removeItem = products.filter((item) => id !== item.id);
+    const removeItem = cartProducts.filter((item) => id !== item.id);
     console.log(removeItem);
 
-    // setProducts([...products, removeItem]);
+    setCartProducts([...cartProducts, removeItem]);
   }
 
   useEffect(() => {
@@ -88,9 +105,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     <CartContext.Provider
       value={{
         products,
+        cartProducts,
+        total,
         addItemCart,
         removeItemCart,
-        total,
         removeOneItemCart,
         loadCoffes,
       }}

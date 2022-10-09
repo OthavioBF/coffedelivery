@@ -2,21 +2,22 @@ import { Container, ButtonsContainer, PriceContainer } from "./styles";
 import { Minus, Plus, Trash } from "phosphor-react";
 import { theme } from "../../styles/theme";
 import { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext, CartProducts } from "../../context/CartContext";
 
-interface CartCardProps {
-  id: number;
-  image: string;
-  title: string;
-  amount: string;
-  price: string;
-}
+export function CartCard({ id, image, title, amount, price }: CartProducts) {
+  const { removeOneItemCart, addItemCart, removeItemCart } =
+    useContext(CartContext);
 
-export function CartCard({ id, image, title, amount, price }: CartCardProps) {
-  const { removeOneItemCart } = useContext(CartContext);
+  function addItem(id: number) {
+    addItemCart(id);
+  }
+
+  function removeOneItem(id: number) {
+    removeOneItemCart(id);
+  }
 
   function removeItem(id: number) {
-    removeOneItemCart(id);
+    removeItemCart(id);
   }
 
   return (
@@ -26,18 +27,18 @@ export function CartCard({ id, image, title, amount, price }: CartCardProps) {
         <h1>{title}</h1>
         <ButtonsContainer>
           <div>
-            <button type="button">
+            <button type="button" onClick={() => removeItem(id)}>
               <Minus size={14} weight="bold" color={theme.colors.purple} />
             </button>
 
             <input type="number" readOnly value={amount} />
 
-            <button type="button">
+            <button type="button" onClick={() => addItem(id)}>
               <Plus size={14} weight="bold" color={theme.colors.purple} />
             </button>
           </div>
 
-          <button onClick={() => removeItem(id)}>
+          <button onClick={() => removeOneItem(id)}>
             <Trash size={16} color={theme.colors.purple} /> REMOVER
           </button>
         </ButtonsContainer>

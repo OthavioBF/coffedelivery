@@ -2,19 +2,17 @@ import { Container, PriceCartContainer, Icon } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartSimple, Plus, Minus } from "phosphor-react";
 import { theme } from "../../styles/theme";
-import { useEffect, useState } from "react";
-import { coffes } from "../../coffes";
+import { Products } from "../../context/CartContext";
 
-export interface CardProps {
-  id: number;
-  image: string;
-  title: string;
-  subtitle: string;
-  type: string[];
-  price: number;
-}
-
-export function Card({ id, image, title, subtitle, type, price }: CardProps) {
+export function Card({
+  id,
+  image,
+  title,
+  subtitle,
+  type,
+  price,
+  amount,
+}: Products) {
   const navigate = useNavigate();
 
   return (
@@ -37,7 +35,7 @@ export function Card({ id, image, title, subtitle, type, price }: CardProps) {
             <Minus size={14} weight="bold" color={theme.colors.purple} />
           </button>
 
-          <input type="number" readOnly />
+          <input type="number" readOnly value={amount} />
 
           <button type="button">
             <Plus size={14} weight="bold" color={theme.colors.purple} />

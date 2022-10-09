@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   Container,
   Content,
@@ -26,6 +26,9 @@ import image from "../../assets/CardCoffeImages/image.png";
 
 import { Header } from "../../components/Header";
 import { CartCard } from "../../components/CartCard";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { CartContext } from "../../context/CartContext";
 
 interface Form {
   cep: number;
@@ -35,15 +38,28 @@ interface Form {
   bairro: string;
   cidade: string;
   uf: string;
+  payment: string[];
 }
 
 export function Cart() {
+  const [payment, setPayment] = useState<string[]>([""]);
+  const { cartProducts } = useContext(CartContext);
+  const navigate = useNavigate();
+
   const { register, handleSubmit } = useForm<Form>();
-  const onSubmit: SubmitHandler<Form> = (data) => console.log(data);
+
+  function confirmPurchase(data: Form) {
+    console.log(data);
+
+    navigate("delivery", {
+      state: { ...data, payment },
+    });
+  }
+
   return (
     <Container>
       <Header />
-      <Content>
+      <Content onSubmit={handleSubmit(confirmPurchase)}>
         <FormContainer>
           <RequestContainer>
             <h1>Complete seu pedido</h1>
@@ -55,15 +71,14 @@ export function Cart() {
                   <h2>Informe o endereço onde deseja receber seu pedido</h2>
                 </div>
               </AdressTitle>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <footer>
                 <input
                   type="number"
                   style={{ width: 200 }}
                   placeholder="CEP"
                   {...register("cep")}
                 />
-                <input type="text" placeholder="Rua" />
-                Rua{" "}
+                <input type="text" placeholder="Rua" {...register("rua")} />
                 <div>
                   <input
                     type="number"
@@ -91,9 +106,14 @@ export function Cart() {
                     placeholder="Cidade"
                     {...register("cidade")}
                   />
-                  <input type="text" style={{ width: 60 }} placeholder="UF" />
+                  <input
+                    type="text"
+                    style={{ width: 60 }}
+                    placeholder="UF"
+                    {...register("uf")}
+                  />
                 </div>
-              </form>
+              </footer>
             </AdressContainer>
           </RequestContainer>
 
@@ -108,15 +128,22 @@ export function Cart() {
                 </h2>
               </div>
             </PaymentTitle>
-            <PaymentButtons type="multiple">
-              <Button value="0">
+            <PaymentButtons
+              type="multiple"
+              value={payment}
+              onValueChange={setPayment}
+            >
+              <Button
+                value="CARTÃO DE
+                CRÉDITO"
+              >
                 <CreditCard size={16} color={theme.colors.purple} /> CARTÃO DE
                 CRÉDITO
               </Button>
-              <Button value="1">
+              <Button value="CARTÃO DE DÉBITO">
                 <Bank size={16} color={theme.colors.purple} /> CARTÃO DE DÉBITO
               </Button>
-              <Button value="2">
+              <Button value="DINHEIRO">
                 <Money size={16} color={theme.colors.purple} /> DINHEIRO
               </Button>
             </PaymentButtons>
@@ -126,20 +153,16 @@ export function Cart() {
         <CoffesContainer>
           <h1>Cafés selecionados</h1>
           <CoffesContent>
-            <CartCard
-              id={1}
-              image={image}
-              amount="2"
-              title="Expresso Tradicional"
-              price="9,90"
-            />
-            <CartCard
-              id={1}
-              image={image}
-              amount="2"
-              title="Expresso Tradicional"
-              price="9,90"
-            />
+            {cartProducts.map((product) => (
+              <CartCard
+                key={product.id}
+                id={product.id}
+                image={product.image}
+                amount={product.amount}
+                title={product.title}
+                price={product.price}
+              />
+            ))}
 
             <div>
               <h1>Total de itens</h1>
@@ -154,10 +177,11 @@ export function Cart() {
               <h2>R$ 29,70</h2>
             </Total>
 
-            <button type="button">CONFIRMAR PEDIDO</button>
+            <button type="submit">CONFIRMAR PEDIDO</button>
           </CoffesContent>
         </CoffesContainer>
       </Content>
+      <NavLink to="/">Retornar para pagina principal</NavLink>
     </Container>
   );
 }

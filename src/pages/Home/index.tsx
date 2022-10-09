@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
 import { Header } from "../../components/Header";
-import { Card, CardProps } from "../../components/Card";
+import { Card } from "../../components/Card";
+import { CartContext } from "../../context/CartContext";
 import { coffes } from "../../coffes";
 
 import coffesvg from "../../assets/presentation/coffe.png";
@@ -22,10 +24,7 @@ import {
 } from "./styles";
 
 export function Home() {
-  const [coffe, setCoffe] = useState<CardProps[]>([]);
-  useEffect(() => {
-    setCoffe(coffes);
-  }, [coffe]);
+  const { products } = useContext(CartContext);
   return (
     <Container>
       <Header />
@@ -66,7 +65,7 @@ export function Home() {
         <h1>Nossos cafés</h1>
 
         <CoffesContent>
-          {coffe.map((item) => (
+          {products.map((item) => (
             <Card
               key={item.id}
               id={item.id}
@@ -75,6 +74,7 @@ export function Home() {
               subtitle={item.subtitle}
               type={item.type}
               price={item.price}
+              amount={item.amount}
             />
           ))}
         </CoffesContent>
