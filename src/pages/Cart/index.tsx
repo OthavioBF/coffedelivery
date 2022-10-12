@@ -22,13 +22,13 @@ import {
   Money,
 } from "phosphor-react";
 import { theme } from "../../styles/theme";
-import image from "../../assets/CardCoffeImages/image.png";
 
 import { Header } from "../../components/Header";
 import { CartCard } from "../../components/CartCard";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/CartContext";
+import { formatPrice } from "../../util/format";
 
 interface Form {
   cep: number;
@@ -43,6 +43,9 @@ interface Form {
 
 export function Cart() {
   const [payment, setPayment] = useState<string[]>([""]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalValueItems, setTotalValueItens] = useState("");
+  const [valueWithShipping, setValueWithShipping] = useState("");
   const { cartProducts } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -55,6 +58,22 @@ export function Cart() {
       state: { ...data, payment },
     });
   }
+
+  useEffect(() => {
+    if (cartProducts.length > 0) {
+      const totalItens = cartProducts
+        .filter((product) => product.amount >= 1)
+        .map((product) => {
+          if (product.amount > 0) return product.amount * product.price;
+          else return 0;
+        })
+        .reduce((total, currentValue) => total + currentValue, 0);
+
+      setTotalItems(totalItems);
+      setTotalValueItens(formatPrice(totalItems));
+      setValueWithShipping(formatPrice(totalItems + 3.5));
+    }
+  }, [cartProducts]);
 
   return (
     <Container>
@@ -166,15 +185,15 @@ export function Cart() {
 
             <div>
               <h1>Total de itens</h1>
-              <h2>R$ 29,70</h2>
+              <h2>{totalValueItems}</h2>
             </div>
             <div>
-              <h1>Total de itens</h1>
-              <h2>R$ 29,70</h2>
+              <h1>Entrega</h1>
+              <h2>R$ 3,50</h2>
             </div>
             <Total>
               <h1>Total</h1>
-              <h2>R$ 29,70</h2>
+              <h2>{valueWithShipping}</h2>
             </Total>
 
             <button type="submit">CONFIRMAR PEDIDO</button>

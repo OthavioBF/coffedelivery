@@ -44,9 +44,27 @@ export const CartButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 38px;
   height: 38px;
   background: #f1e9c9;
   border-radius: 6px;
   border: none;
+`;
+
+export const TotalCart = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: ${theme.colors.yellow_dark};
+  position: absolute;
+  top: -8px;
+  right: -8.35px;
+  border-radius: 100%;
+  color: ${theme.colors.white};
+  font-size: 12px;
+  font-weight: 700;
 `;

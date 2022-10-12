@@ -66,7 +66,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }
 
   function removeItemCart(id: number) {
-    const removeItem = products.map((item) =>
+    const removeItem = cartProducts.map((item) =>
       id === item.id
         ? {
             ...products,

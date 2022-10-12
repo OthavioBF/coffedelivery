@@ -12,6 +12,8 @@ import clock from "../../assets/clock.svg";
 import dolla from "../../assets/dolla.svg";
 import { NavLink, useLocation } from "react-router-dom";
 
+import { CartContext } from "../../context/CartContext";
+
 interface LocationParams {
   rua: string;
   numero: number;
@@ -27,6 +29,7 @@ export function Delivery() {
 
   const state = location.state as LocationParams;
   const { rua, numero, bairro, cidade, uf, payment } = state;
+
   return (
     <Container>
       <Header />

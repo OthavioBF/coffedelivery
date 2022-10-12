@@ -11,6 +11,7 @@ export function Card({
   subtitle,
   type,
   price,
+  priceFormatted,
   amount,
 }: Products) {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export function Card({
       <h2>{subtitle}</h2>
 
       <PriceCartContainer>
-        <span>{price}</span>
+        <span>{priceFormatted}</span>
 
         <div>
           <button type="button">
