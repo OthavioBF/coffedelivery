@@ -173,14 +173,7 @@ export function Cart() {
           <h1>Cafés selecionados</h1>
           <CoffesContent>
             {cartProducts.map((product) => (
-              <CartCard
-                key={product.id}
-                id={product.id}
-                image={product.image}
-                amount={product.amount}
-                title={product.title}
-                price={product.price}
-              />
+              <CartCard key={product.id} data={product} />
             ))}
 
             <div>

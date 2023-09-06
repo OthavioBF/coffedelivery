@@ -3,10 +3,13 @@ import { theme } from "../../styles/theme";
 
 export const Container = styled.div`
   background: ${theme.colors.background};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
+  max-width: 70rem;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    max-width: 50rem;
+  }
 `;
 
 export const PresentationContainer = styled.div`
@@ -15,6 +18,10 @@ export const PresentationContainer = styled.div`
   justify-content: center;
   width: 100%;
   height: 34rem;
+
+  @media (max-width: 1024px) {
+    height: 18rem;
+  }
 `;
 
 export const PresentationContent = styled.div`
@@ -25,6 +32,13 @@ export const PresentationContent = styled.div`
     width: 29.75rem;
     height: 22.5rem;
   }
+
+  @media (max-width: 1024px) {
+    img {
+      width: 22rem;
+      height: 16rem;
+    }
+  }
 `;
 
 export const PresentationText = styled.div`
@@ -34,7 +48,7 @@ export const PresentationText = styled.div`
     font-family: "Baloo 2";
     font-style: normal;
     font-weight: 800;
-    font-size: 48px;
+    font-size: 3rem;
     line-height: 130%;
     color: ${theme.colors.base_title};
   }
@@ -43,11 +57,21 @@ export const PresentationText = styled.div`
     font-family: ${theme.font_family.roboto};
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 130%;
     color: ${theme.colors.base_subtitle};
 
     margin-top: 1rem;
+  }
+
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1.125rem;
+    }
+    width: 24rem;
   }
 `;
 
@@ -64,8 +88,14 @@ export const Icons = styled.div`
   justify-content: center;
   gap: 8px;
   img {
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    p {
+      font-size: 0.6rem;
+    }
   }
 `;
 

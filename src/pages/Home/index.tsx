@@ -66,16 +66,7 @@ export function Home() {
 
         <CoffesContent>
           {products.map((item) => (
-            <Card
-              key={item.id}
-              id={item.id}
-              image={item.image}
-              title={item.title}
-              subtitle={item.subtitle}
-              type={item.type}
-              price={item.price}
-              amount={item.amount}
-            />
+            <Card key={item.id} data={item} />
           ))}
         </CoffesContent>
       </CoffesContainer>

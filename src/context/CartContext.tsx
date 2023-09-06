@@ -30,7 +30,7 @@ interface CartContextProps {
   products: Products[];
   cartProducts: CartProducts[];
   total: number;
-  addItemCart: (id: number) => void;
+  addItemCart: (product: CartProducts) => void;
   removeItemCart: (id: number) => void;
   removeOneItemCart: (id: number) => void;
   loadCoffes: () => void;
@@ -39,8 +39,8 @@ interface CartContextProps {
 export const CartContext = createContext({} as CartContextProps);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
-  const [products, setProducts] = useState<Products[]>([]);
   const [cartProducts, setCartProducts] = useState<CartProducts[]>([]);
+  const [products, setProducts] = useState<Products[]>([]);
   const [total, setTotal] = useState(0);
 
   function loadCoffes() {
@@ -52,37 +52,44 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     setProducts(dataFormatted);
   }
 
-  function addItemCart(id: number) {
-    const addItem = products.map((item) =>
-      id === item.id
-        ? {
-            ...products,
-            amount: item.amount + 1,
-          }
-        : { ...products }
+  function addItemCart(product: CartProducts) {
+    const cartProductsIndex = cartProducts.findIndex(
+      (p) => p.id === product.id
     );
+    const productsIndex = products.findIndex((p) => p.id === product.id);
 
-    setCartProducts(addItem);
+    products[productsIndex].amount += 1;
+
+    if (cartProductsIndex === -1) {
+      setCartProducts((state) => [...state, { ...product, amount: 1 }]);
+    } else {
+      const products = [...cartProducts];
+
+      products[cartProductsIndex].amount += 1;
+
+      setCartProducts(products);
+    }
   }
 
   function removeItemCart(id: number) {
-    const removeItem = cartProducts.map((item) =>
-      id === item.id
-        ? {
-            ...products,
-            amount: item.amount - 1,
-          }
-        : { ...products }
-    );
+    const newCartProducts = [...cartProducts];
+    const newProducts = [...products];
 
-    setProducts(removeItem);
+    const itemIndex = products.findIndex((p) => p.id === id);
+    const productsIndex = products.findIndex((p) => p.id === id);
+
+    newProducts[productsIndex].amount -= 1;
+
+    newCartProducts[itemIndex].amount -= 1;
+
+    setCartProducts(newCartProducts);
+    setProducts(newProducts);
   }
 
   function removeOneItemCart(id: number) {
     const removeItem = cartProducts.filter((item) => id !== item.id);
-    console.log(removeItem);
 
-    setCartProducts([...cartProducts, removeItem]);
+    setCartProducts(removeItem);
   }
 
   useEffect(() => {

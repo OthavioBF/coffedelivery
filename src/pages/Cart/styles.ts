@@ -4,16 +4,18 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group";
 
 export const Container = styled.div`
   background: ${theme.colors.background};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+
+  max-width: 70rem;
+  margin: 0 auto;
+
+  margin-bottom: 2rem;
 
   a {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 2.5rem;
+    width: 16rem;
     background: ${theme.colors.purple};
 
     font-family: "Roboto";
@@ -28,6 +30,10 @@ export const Container = styled.div`
     margin-top: 3rem;
     padding: 0 10px;
   }
+
+  @media (max-width: 1024px) {
+    max-width: 50rem;
+  }
 `;
 
 export const Content = styled.form`
@@ -40,10 +46,13 @@ export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+
+  @media (max-width: 1024px) {
+    width: 28.5rem;
+  }
 `;
 
 export const RequestContainer = styled.div`
-  width: 40rem;
   height: auto;
   background: ${theme.colors.background};
 
@@ -54,6 +63,12 @@ export const RequestContainer = styled.div`
     font-size: 1.125rem;
     line-height: 130%;
     color: ${theme.colors.base_subtitle};
+  }
+
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -92,6 +107,16 @@ export const AdressContainer = styled.div`
       gap: 0 0.75rem;
     }
   }
+
+  @media (max-width: 1024px) {
+    footer {
+      input {
+        height: 1.5rem;
+        font-size: 0.6rem;
+      }
+    }
+    max-width: 50rem;
+  }
 `;
 
 export const AdressTitle = styled.header`
@@ -116,6 +141,18 @@ export const AdressTitle = styled.header`
       font-size: 0.875rem;
       line-height: 130%;
       color: ${theme.colors.base_text};
+    }
+  }
+
+  @media (max-width: 1024px) {
+    div {
+      h1 {
+        font-size: 0.875rem;
+      }
+
+      h2 {
+        font-size: 0.6rem;
+      }
     }
   }
 `;
@@ -190,6 +227,12 @@ export const CoffesContainer = styled.div`
     line-height: 130%;
     color: ${theme.colors.base_subtitle};
   }
+
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: 1rem;
+    }
+  }
 `;
 
 export const CoffesContent = styled.div`
@@ -227,14 +270,14 @@ export const CoffesContent = styled.div`
     align-items: center;
     gap: 4px;
 
-    width: 368px;
+    width: 100%;
     height: 46px;
 
     color: ${theme.colors.white};
     font-family: "Roboto";
     font-style: normal;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 160%;
 
     background: ${theme.colors.yellow};
@@ -245,6 +288,18 @@ export const CoffesContent = styled.div`
     &:hover {
       background: ${theme.colors.yellow_dark};
     }
+  }
+
+  @media (max-width: 1024px) {
+    div {
+      h1 {
+        font-size: 0.7rem;
+      }
+      h2 {
+        font-size: 0.875rem;
+      }
+    }
+    width: 20rem;
   }
 `;
 

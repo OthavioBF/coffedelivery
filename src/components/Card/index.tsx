@@ -2,43 +2,41 @@ import { Container, PriceCartContainer, Icon } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCartSimple, Plus, Minus } from "phosphor-react";
 import { theme } from "../../styles/theme";
-import { Products } from "../../context/CartContext";
+import { CartContext, Products } from "../../context/CartContext";
+import { useContext } from "react";
 
-export function Card({
-  id,
-  image,
-  title,
-  subtitle,
-  type,
-  price,
-  priceFormatted,
-  amount,
-}: Products) {
+interface Card {
+  data: Products;
+}
+
+export function Card({ data }: Card) {
+  const { addItemCart, removeItemCart } = useContext(CartContext);
+
   const navigate = useNavigate();
 
   return (
     <Container>
-      <img src={image} />
+      <img src={data.image} />
       <div>
-        {type.map((item) => (
-          <p key={`${id}-${type}`}>{item}</p>
+        {data.type.map((item) => (
+          <p key={`${data.id}-${data.type}`}>{item}</p>
         ))}
       </div>
 
-      <h1>{title}</h1>
-      <h2>{subtitle}</h2>
+      <h1>{data.title}</h1>
+      <h2>{data.subtitle}</h2>
 
       <PriceCartContainer>
-        <span>{priceFormatted}</span>
+        <span>{data.priceFormatted}</span>
 
         <div>
-          <button type="button">
+          <button type="button" onClick={() => removeItemCart(data.id)}>
             <Minus size={14} weight="bold" color={theme.colors.purple} />
           </button>
 
-          <input type="number" readOnly value={amount} />
+          <input type="number" readOnly value={data.amount} />
 
-          <button type="button">
+          <button type="button" onClick={() => addItemCart(data)}>
             <Plus size={14} weight="bold" color={theme.colors.purple} />
           </button>
         </div>

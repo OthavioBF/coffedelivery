@@ -4,48 +4,40 @@ import { theme } from "../../styles/theme";
 import { useContext } from "react";
 import { CartContext, CartProducts } from "../../context/CartContext";
 
-export function CartCard({ id, image, title, amount, price }: CartProducts) {
+interface Cart {
+  data: CartProducts;
+}
+
+export function CartCard({ data }: Cart) {
   const { removeOneItemCart, addItemCart, removeItemCart } =
     useContext(CartContext);
 
-  function addItem(id: number) {
-    addItemCart(id);
-  }
-
-  function removeOneItem(id: number) {
-    removeOneItemCart(id);
-  }
-
-  function removeItem(id: number) {
-    removeItemCart(id);
-  }
-
   return (
     <Container>
-      <img src={image} />
+      <img src={data.image} />
       <div>
-        <h1>{title}</h1>
+        <h1>{data.title}</h1>
         <ButtonsContainer>
           <div>
-            <button type="button" onClick={() => removeItem(id)}>
+            <button type="button" onClick={() => removeItemCart(data.id)}>
               <Minus size={14} weight="bold" color={theme.colors.purple} />
             </button>
 
-            <input type="number" readOnly value={amount} />
+            <input type="number" readOnly value={data.amount} />
 
-            <button type="button" onClick={() => addItem(id)}>
+            <button type="button" onClick={() => addItemCart(data)}>
               <Plus size={14} weight="bold" color={theme.colors.purple} />
             </button>
           </div>
 
-          <button onClick={() => removeOneItem(id)}>
+          <button onClick={() => removeOneItemCart(data.id)}>
             <Trash size={16} color={theme.colors.purple} /> REMOVER
           </button>
         </ButtonsContainer>
       </div>
 
       <PriceContainer>
-        <span>{price}</span>
+        <span>{data.price}</span>
       </PriceContainer>
     </Container>
   );
