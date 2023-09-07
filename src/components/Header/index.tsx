@@ -11,9 +11,13 @@ import { ShoppingCart, MapPin } from "phosphor-react";
 import { theme } from "../../styles/theme";
 import logo from "../../assets/LogoCoffe.svg";
 import { CartContext } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export function Header() {
-  const { total } = useContext(CartContext);
+  const { cartProducts } = useContext(CartContext);
+
+  const navigate = useNavigate();
+
   return (
     <Container>
       <Content>
@@ -22,13 +26,15 @@ export function Header() {
           <LocationButton>
             <MapPin size={24} weight="fill" /> Porto Alegre, RS
           </LocationButton>
-          <CartButton>
+          <CartButton onClick={() => navigate("/cart")}>
             <ShoppingCart
               size={22}
               color={theme.colors.yellow_dark}
               weight="fill"
             />
-            {total > 0 && <TotalCart>{total}</TotalCart>}
+            {cartProducts.length > 0 && (
+              <TotalCart>{cartProducts.length}</TotalCart>
+            )}
           </CartButton>
         </ButtonsContent>
       </Content>

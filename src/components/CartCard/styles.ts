@@ -54,22 +54,12 @@ export const ButtonsContainer = styled.div`
       }
     }
 
-    input {
+    div {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 20px;
       height: 21px;
-      border: none;
-      color: ${theme.colors.base_title};
-      /* background: ${theme.colors.base_button}; */
-      outline: none;
-
-      font-family: "Roboto";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 130%;
     }
   }
 

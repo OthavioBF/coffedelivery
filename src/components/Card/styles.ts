@@ -61,15 +61,14 @@ export const Container = styled.div`
 export const PriceCartContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
   height: 2.375rem;
-  margin-top: 33px;
+  margin-top: 2rem;
 
   span {
     font-family: "Baloo 2";
     font-style: normal;
     font-weight: 800;
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 130%;
     color: ${theme.colors.base_text};
   }
@@ -96,22 +95,12 @@ export const PriceCartContainer = styled.div`
       }
     }
 
-    input {
+    div {
       display: flex;
       align-items: center;
       justify-content: center;
       width: 20px;
       height: 21px;
-      border: none;
-      color: ${theme.colors.base_title};
-      /* background: ${theme.colors.base_button}; */
-      outline: none;
-
-      font-family: "Roboto";
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 130%;
     }
   }
 `;

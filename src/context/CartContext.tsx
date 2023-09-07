@@ -75,7 +75,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     const newCartProducts = [...cartProducts];
     const newProducts = [...products];
 
-    const itemIndex = products.findIndex((p) => p.id === id);
+    const itemIndex = cartProducts.findIndex((p) => p.id === id);
     const productsIndex = products.findIndex((p) => p.id === id);
 
     newProducts[productsIndex].amount -= 1;
@@ -97,16 +97,16 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
   }, []);
 
   useEffect(() => {
-    const response = coffes.reduce((acc, item) => {
+    const response = cartProducts.reduce((acc, item) => {
       if (item.amount >= 1) {
-        return (acc += 1);
+        return (acc += item.amount);
       }
 
       return acc;
     }, 0);
 
     setTotal(response);
-  }, [coffes]);
+  }, [cartProducts]);
 
   return (
     <CartContext.Provider

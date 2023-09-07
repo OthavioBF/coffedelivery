@@ -61,7 +61,7 @@ export function Cart() {
 
   useEffect(() => {
     if (cartProducts.length > 0) {
-      const totalItens = cartProducts
+      const totalValue = cartProducts
         .filter((product) => product.amount >= 1)
         .map((product) => {
           if (product.amount > 0) return product.amount * product.price;
@@ -69,9 +69,9 @@ export function Cart() {
         })
         .reduce((total, currentValue) => total + currentValue, 0);
 
-      setTotalItems(totalItems);
-      setTotalValueItens(formatPrice(totalItems));
-      setValueWithShipping(formatPrice(totalItems + 3.5));
+      setTotalItems(totalValue);
+      setTotalValueItens(formatPrice(totalValue));
+      setValueWithShipping(formatPrice(totalValue + 3.5));
     }
   }, [cartProducts]);
 

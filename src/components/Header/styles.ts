@@ -50,6 +50,7 @@ export const CartButton = styled.button`
   background: #f1e9c9;
   border-radius: 6px;
   border: none;
+  cursor: pointer;
 `;
 
 export const TotalCart = styled.span`

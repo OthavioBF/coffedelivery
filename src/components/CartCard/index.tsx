@@ -19,11 +19,15 @@ export function CartCard({ data }: Cart) {
         <h1>{data.title}</h1>
         <ButtonsContainer>
           <div>
-            <button type="button" onClick={() => removeItemCart(data.id)}>
+            <button
+              type="button"
+              onClick={() => removeItemCart(data.id)}
+              disabled={data.amount === 0}
+            >
               <Minus size={14} weight="bold" color={theme.colors.purple} />
             </button>
 
-            <input type="number" readOnly value={data.amount} />
+            <div>{data.amount}</div>
 
             <button type="button" onClick={() => addItemCart(data)}>
               <Plus size={14} weight="bold" color={theme.colors.purple} />
@@ -37,7 +41,7 @@ export function CartCard({ data }: Cart) {
       </div>
 
       <PriceContainer>
-        <span>{data.price}</span>
+        <span>{data.priceFormatted}</span>
       </PriceContainer>
     </Container>
   );

@@ -30,11 +30,15 @@ export function Card({ data }: Card) {
         <span>{data.priceFormatted}</span>
 
         <div>
-          <button type="button" onClick={() => removeItemCart(data.id)}>
+          <button
+            type="button"
+            onClick={() => removeItemCart(data.id)}
+            disabled={data.amount === 0}
+          >
             <Minus size={14} weight="bold" color={theme.colors.purple} />
           </button>
 
-          <input type="number" readOnly value={data.amount} />
+          <div>{data.amount}</div>
 
           <button type="button" onClick={() => addItemCart(data)}>
             <Plus size={14} weight="bold" color={theme.colors.purple} />
